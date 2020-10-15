@@ -94,3 +94,29 @@ function createPhoto(title, date, size) {
     console.log('Creando foto', title, date, size);
 }
 createPhoto('titulo1');
+class Photo {
+    constructor(id, title, date, size) {
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.size = size;
+    }
+    titleToUpperCase() {
+        return this.title.toUpperCase();
+    }
+}
+class Album {
+    constructor(id, title, description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.pictures = [];
+    }
+    addPhoto(photo) {
+        this.pictures.push(photo);
+    }
+}
+const miFoto = new Photo(21, 'Mi titulo', '2019', '800x800');
+const miAlbum = new Album(1, 'Mis mejores fotos', 'Descripción');
+miAlbum.addPhoto(miFoto);
+console.log('Mi Album', miAlbum);

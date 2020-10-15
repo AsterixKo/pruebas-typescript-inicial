@@ -194,3 +194,96 @@ function createPhoto(title: string, date?: string, size?: PhotoSize): void {
 }
 
 createPhoto('titulo1');
+
+// INTERFACES - contratos
+// interface Photo extends Media {
+//     id: number,
+//     readonly title: string,//una vez creado el objeto esta propiedad no podrá ser modificada
+//     date: string,
+//     size?: PhotoSize//propiedad opcional
+// }
+// interface Media {
+//     id: number,
+//     title: string
+// }
+// interface Album extends Media {
+//     id: number,
+//     title: string,
+//     description: string
+// }
+
+// function showPhoto(image: Photo) {
+//     console.log('Muestra la foto');
+// }
+
+// let image: Photo = {
+//     id: 12,
+//     title: 'Prueba1',
+//     date: '2019',
+//     size: '800x800'
+// }
+
+// // image.title = 'valor2';//esta propiedad no puede ser modificada, da error
+// showPhoto(image);
+// showPhoto({ id: 12, title: 'Prueba1', date: '2019' });
+
+// const album: Album = {
+//     id: 1,
+//     title: 'Playa 1',
+//     description: 'Tomando cervezas en el chiringuito'
+// };
+
+// const photo: Photo = {
+//     id: 1,
+//     title: 'Foto1',
+//     date: '2019',
+//     size: '300x300'
+// }
+
+// CLASES
+class Photo {
+    //Propiedades
+    id: number;
+    title: string;
+    date: string;
+    size: PhotoSize;
+
+    constructor(id: number, title: string, date: string, size: PhotoSize) {
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.size = size;
+    }
+
+    //Metodos
+    titleToUpperCase(): string{
+        return this.title.toUpperCase();
+    }
+}
+
+class Album {
+    //Propiedades
+    id: number;
+    title: string;
+    description: string;
+    pictures: Photo[];
+
+    constructor(id: number, title: string, description: string) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.pictures = [];
+    }
+
+    //Metodos
+    addPhoto(photo: Photo): void{
+        this.pictures.push(photo);
+    }
+}
+
+const miFoto: Photo = new Photo(21, 'Mi titulo', '2019', '800x800');
+const miAlbum: Album = new Album(1, 'Mis mejores fotos', 'Descripción');
+
+miAlbum.addPhoto(miFoto);
+
+console.log('Mi Album', miAlbum);
