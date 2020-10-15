@@ -144,3 +144,53 @@ enum CountryPlus {
 }
 let combinedCountry = Object.assign({}, Country, CountryPlus);//combinamos dos enumerados
 console.log(combinedCountry);
+
+// Union de tipos
+let userId5: number | string;//puede ser number o string
+userId5 = 22;
+userId5 = '22';
+// userId5 = false;//aqui salta el error
+
+let numPedido: number | string;
+let laQueSea: number | string;
+
+// Alias de tipos
+type Id = number | string;
+let userId6: Id;
+
+let miVar1 = false;
+// Funciones
+function getUserById(id: Id, numPedido: Id): string {
+    return 'Pepe';
+}
+// getUserById(miVar1, 34);//esto da error porque miVar es boolean
+
+// Tipos personalizados
+type PhotoSize = '100x100' | '300x300' | '800x800';
+let myFirstPictureSize: PhotoSize = '300x300';//me sugiere las opciones
+// let mySecondPictureSize: PhotoSize = '1024x1024';//esto da error porque no se corresponde con ningun valor
+
+// Aserciones de tipo - forma 1
+let username: any;
+username = 'Horse Luis';
+// username = 2367;
+let message: string = (<string>username).length > 5 ? 'Bienvenido' : 'El nombre es corto';
+console.log('Mensaje', message);
+
+// Aserciones de tipo - Fromra2
+let message2: string = (username as string).length > 5 ? 'Bienvenido' : 'El nombre es corto';
+
+// FUNCIONES
+// function createPhoto(title: string, date: string, size: PhotoSize): void {
+//     console.log('Creando foto', title, date, size);
+// }
+
+// createPhoto('titulo1', '2020', '800x800');
+
+//quiero que los valores sean opcionales
+//los valores opcionales siempre al final sino dara error
+function createPhoto(title: string, date?: string, size?: PhotoSize): void {
+    console.log('Creando foto', title, date, size);
+}
+
+createPhoto('titulo1');

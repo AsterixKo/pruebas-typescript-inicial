@@ -74,3 +74,23 @@ var CountryPlus;
 })(CountryPlus || (CountryPlus = {}));
 let combinedCountry = Object.assign({}, Country, CountryPlus);
 console.log(combinedCountry);
+let userId5;
+userId5 = 22;
+userId5 = '22';
+let numPedido;
+let laQueSea;
+let userId6;
+let miVar1 = false;
+function getUserById(id, numPedido) {
+    return 'Pepe';
+}
+let myFirstPictureSize = '300x300';
+let username;
+username = 'Horse Luis';
+let message = username.length > 5 ? 'Bienvenido' : 'El nombre es corto';
+console.log('Mensaje', message);
+let message2 = username.length > 5 ? 'Bienvenido' : 'El nombre es corto';
+function createPhoto(title, date, size) {
+    console.log('Creando foto', title, date, size);
+}
+createPhoto('titulo1');
