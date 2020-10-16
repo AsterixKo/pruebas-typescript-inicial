@@ -1,4 +1,18 @@
 "use strict";
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
+var __description, __date;
 let phoneNumber = 5868575;
 let phoneNumber2;
 phoneNumber2 = 4848484;
@@ -94,29 +108,73 @@ function createPhoto(title, date, size) {
     console.log('Creando foto', title, date, size);
 }
 createPhoto('titulo1');
-class Photo {
-    constructor(id, title, date, size) {
-        this.id = id;
-        this.title = title;
-        this.date = date;
-        this.size = size;
-    }
-    titleToUpperCase() {
-        return this.title.toUpperCase();
+class Media {
+    constructor(id, title) {
+        this._id = id;
+        this._title = title;
     }
 }
-class Album {
+class Photo extends Media {
     constructor(id, title, description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.pictures = [];
+        super(id, title);
+        __description.set(this, void 0);
+        __classPrivateFieldSet(this, __description, description);
+    }
+    get id() {
+        return this._id;
+    }
+    set id(newId) {
+        this._id = newId;
+    }
+    get title() {
+        return this._title;
+    }
+    set title(newTitle) {
+        this._title = newTitle;
+    }
+    get description() {
+        return __classPrivateFieldGet(this, __description);
+    }
+    set description(newDescription) {
+        __classPrivateFieldSet(this, __description, newDescription);
+    }
+}
+__description = new WeakMap();
+class Album extends Media {
+    constructor(id, title, date) {
+        super(id, title);
+        __date.set(this, void 0);
+        __classPrivateFieldSet(this, __date, date);
+        this._pictures = [];
+    }
+    get id() {
+        return this._id;
+    }
+    set id(newId) {
+        this._id = newId;
+    }
+    get title() {
+        return this._title;
+    }
+    set title(newTitle) {
+        this._title = newTitle;
+    }
+    get date() {
+        return __classPrivateFieldGet(this, __date);
+    }
+    set date(newDate) {
+        __classPrivateFieldSet(this, __date, newDate);
     }
     addPhoto(photo) {
-        this.pictures.push(photo);
+        this._pictures.push(photo);
+    }
+    static saludar(saludo) {
+        return `Este es mi saludo: ${saludo}`;
     }
 }
-const miFoto = new Photo(21, 'Mi titulo', '2019', '800x800');
-const miAlbum = new Album(1, 'Mis mejores fotos', 'Descripción');
+__date = new WeakMap();
+const miFoto = new Photo(22, 'Hola', 'Hola');
+miFoto.id = 99;
+const miAlbum = new Album(30, 'Hola', 'Hola');
 miAlbum.addPhoto(miFoto);
-console.log('Mi Album', miAlbum);
+Album.saludar('Hey');

@@ -240,50 +240,163 @@ createPhoto('titulo1');
 //     size: '300x300'
 // }
 
-// CLASES
-class Photo {
-    //Propiedades
-    id: number;
-    title: string;
-    date: string;
-    size: PhotoSize;
+// // CLASES
+// class Photo {
+//     //Propiedades
+//     id: number;
+//     title: string;
+//     date: string;
+//     size: PhotoSize;
 
-    constructor(id: number, title: string, date: string, size: PhotoSize) {
-        this.id = id;
-        this.title = title;
-        this.date = date;
-        this.size = size;
-    }
+//     constructor(id: number, title: string, date: string, size: PhotoSize) {
+//         this.id = id;
+//         this.title = title;
+//         this.date = date;
+//         this.size = size;
+//     }
 
-    //Metodos
-    titleToUpperCase(): string{
-        return this.title.toUpperCase();
+//     //Metodos
+//     titleToUpperCase(): string {
+//         return this.title.toUpperCase();
+//     }
+// }
+
+// class Album {
+//     //Propiedades
+//     private id: number;
+//     #code: number;//sintaxis mas moderna para definir como private
+//     title: string;
+//     description: string;
+//     pictures: Photo[];
+
+//     constructor(id: number, code: number, title: string, description: string) {
+//         this.id = id;
+//         this.#code = code;
+//         this.title = title;
+//         this.description = description;
+//         this.pictures = [];
+//     }
+
+//     //Metodos
+//     addPhoto(photo: Photo): void {
+//         this.pictures.push(photo);
+//     }
+//     private resizePhoto(photo: Photo): Photo {
+//         return photo;
+//     }
+// }
+
+// const miFoto: Photo = new Photo(21, 'Mi titulo', '2019', '800x800');
+// const miAlbum: Album = new Album(1, 2, 'Mis mejores fotos', 'Descripción');
+
+// miAlbum.addPhoto(miFoto);
+
+// console.log('Mi Album', miAlbum);
+
+// // miAlbum.id=99;//no puedo acceder porque es privada
+// console.log('Mi Album', miAlbum);
+
+// GETTERS Y SETTERS
+// Son metodos que permiten obtener (GET) o establecer (SET) un valor en una propiedad
+
+// Una clase abstracta se utiliza cuando no queremos que alguien pueda instanciar objetos utilizando esa clase
+abstract class Media {
+    protected _id: number;//protected para poder hacer setter y getter desde las subclases.
+    // protected readonly _id: number;//protected para poder hacer setter y getter desde las subclases. Propiedad de solo lectura
+    protected _title: string;
+
+    constructor(id: number, title: string) {
+        this._id = id;
+        this._title = title;
     }
 }
+class Photo extends Media {
 
-class Album {
-    //Propiedades
-    id: number;
-    title: string;
-    description: string;
-    pictures: Photo[];
+    #_description: string;
 
     constructor(id: number, title: string, description: string) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.pictures = [];
+        super(id, title);
+        this.#_description = description;
     }
 
-    //Metodos
-    addPhoto(photo: Photo): void{
-        this.pictures.push(photo);
+    //Getters - Setters
+    get id(): number {
+        return this._id;
     }
+
+    set id(newId: number) {
+        this._id = newId;
+    }
+
+    get title(): string {
+        return this._title;
+    }
+
+    set title(newTitle: string) {
+        this._title = newTitle;
+    }
+
+    get description(): string {
+        return this.#_description;
+    }
+
+    set description(newDescription: string) {
+        this.#_description = newDescription;
+    }
+
 }
 
-const miFoto: Photo = new Photo(21, 'Mi titulo', '2019', '800x800');
-const miAlbum: Album = new Album(1, 'Mis mejores fotos', 'Descripción');
+class Album extends Media {
+    #_date: string;
+    private _pictures: Photo[];
+
+    constructor(id: number, title: string, date: string) {
+        super(id, title);
+        this.#_date = date;
+        this._pictures = [];
+    }
+
+    //Getters - Setters
+    get id(): number {
+        return this._id;
+    }
+
+    set id(newId: number) {
+        this._id = newId;
+    }
+
+    get title(): string {
+        return this._title;
+    }
+
+    set title(newTitle: string) {
+        this._title = newTitle;
+    }
+
+    get date(): string {
+        return this.#_date;
+    }
+
+    set date(newDate: string) {
+        this.#_date = newDate;
+    }
+
+    public addPhoto(photo: Photo) {
+        this._pictures.push(photo)
+    }
+
+    public static saludar(saludo: string) {//ejemplo declaracion de metodo estatico, es accesible sin necesidad de instanciar la clase
+        return `Este es mi saludo: ${saludo}`;
+    }
+
+}
+
+const miFoto = new Photo(22, 'Hola', 'Hola');
+miFoto.id = 99;
+// const elemento = new Media();//no pordre instanciarla porque es abstracta
+const miAlbum = new Album(30, 'Hola', 'Hola');
 
 miAlbum.addPhoto(miFoto);
 
-console.log('Mi Album', miAlbum);
+Album.saludar('Hey');
+
