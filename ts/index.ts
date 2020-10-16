@@ -400,3 +400,37 @@ miAlbum.addPhoto(miFoto);
 
 Album.saludar('Hey');
 
+// *******************
+// DECORADORES
+// ******************
+// Permiten extender la funcionalidad de otros elementos
+// Los decoradores NO existen en JS. Sólo en TS
+
+/**
+ * 
+ * @param target Hace referencia al elemento que posee el decorador
+ * @param key Hace referencia al elemento que extendemos
+ */
+function extendedFunc(target: any, key: any) {
+    console.log(`Mi target es ${target}`);
+    console.log(`He llamado a ${key}`);
+}
+
+
+
+class Person {
+    private name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    @extendedFunc//esto es un decorador
+    sayMyName() {
+        console.log(`Tu nombre es ${this.name}`);
+    }
+}
+
+const federico = new Person('Federico');
+
+federico.sayMyName();
